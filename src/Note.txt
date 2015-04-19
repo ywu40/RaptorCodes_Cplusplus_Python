@@ -1,0 +1,6 @@
+sudo swig -c++ -python raptor_encoder.i
+sudo python setup_encoder.py build_ext --inplace
+
+
+sudo swig -c++ -python raptor_decoder.i
+sudo python setup_decoder.py build_ext --inplace
