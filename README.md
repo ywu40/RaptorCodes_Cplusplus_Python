@@ -18,6 +18,6 @@ Decoder side:
 
 2) sudo python setup_decoder.py build_ext --inplace
 
-Then you can get the Python APIs. File run.py will show you an example of how to use these Raptor encoder/decoder Python APIs.
+Then you can get the Python APIs. File run.py will show you an example of how to use these Raptor encoder/decoder Python APIs. Please make sure that you have installed Python before you perform the above steps.
 
 Hope this can help you. If you have any questions, please let me know. Thanks.
