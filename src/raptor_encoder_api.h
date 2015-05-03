@@ -10,31 +10,31 @@
 class RaptorEncoder
 {
 public:
-	RaptorEncoder(int K, int lossNum, int overhead)
-	{ 
-		encoder = new CEncoder(K, lossNum, overhead);
-	}
+  RaptorEncoder(int K, int lossNum, int overhead)
+  { 
+    encoder = new CEncoder(K, lossNum, overhead);
+  }
 
-	~RaptorEncoder()
-	{
-		if (encoder != NULL)
-		{
-			delete encoder;
-			encoder = NULL;
-		}
-	}
+  ~RaptorEncoder()
+  {
+    if (encoder != NULL)
+    {
+      delete encoder;
+      encoder = NULL;
+    }
+  }
 
   void set_data(const std::string &raw_data);
-	void get_data_access();
-	std::vector<U8> get_encodedSym();
-	bool is_empty();
-	int count_encodedSym();
-	void stringToVector(const std::string &strData, std::vector<unsigned char> &vecData);
+  void get_data_access();
+  std::vector<U8> get_encodedSym();
+  bool is_empty();
+  int count_encodedSym();
+  void stringToVector(const std::string &strData, std::vector<unsigned char> &vecData);
 
 private:
 
-	CEncoder *encoder;
-	std::queue<CData> encodedSym;
+  CEncoder *encoder;
+  std::queue<CData> encodedSym;
 };
 
 #endif

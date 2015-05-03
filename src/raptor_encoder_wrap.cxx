@@ -233,7 +233,7 @@ template <typename T> T SwigValueInit() {
       // success code
       if (SWIG_IsNewObj(res) {
         ...
-	delete *ptr;
+  delete *ptr;
       } else {
         ...
       }
@@ -246,17 +246,17 @@ template <typename T> T SwigValueInit() {
    also requires SWIG_ConvertPtr to return new result values, such as
 
       int SWIG_ConvertPtr(obj, ptr,...) {         
-        if (<obj is ok>) {			       
-          if (<need new object>) {		       
+        if (<obj is ok>) {             
+          if (<need new object>) {           
             *ptr = <ptr to new allocated object>; 
-            return SWIG_NEWOBJ;		       
-          } else {				       
-            *ptr = <ptr to old object>;	       
-            return SWIG_OLDOBJ;		       
-          } 				       
-        } else {				       
-          return SWIG_BADOBJ;		       
-        }					       
+            return SWIG_NEWOBJ;          
+          } else {               
+            *ptr = <ptr to old object>;        
+            return SWIG_OLDOBJ;          
+          }                
+        } else {               
+          return SWIG_BADOBJ;          
+        }                
       }
 
    Of course, returning the plain '0(success)/-1(fail)' still works, but you can be
@@ -334,32 +334,32 @@ typedef struct swig_type_info *(*swig_dycast_func)(void **);
 
 /* Structure to store information on one type */
 typedef struct swig_type_info {
-  const char             *name;			/* mangled name of this type */
-  const char             *str;			/* human readable name of this type */
-  swig_dycast_func        dcast;		/* dynamic cast function down a hierarchy */
-  struct swig_cast_info  *cast;			/* linked list of types that can cast into this type */
-  void                   *clientdata;		/* language specific type data */
-  int                    owndata;		/* flag if the structure owns the clientdata */
+  const char             *name;     /* mangled name of this type */
+  const char             *str;      /* human readable name of this type */
+  swig_dycast_func        dcast;    /* dynamic cast function down a hierarchy */
+  struct swig_cast_info  *cast;     /* linked list of types that can cast into this type */
+  void                   *clientdata;   /* language specific type data */
+  int                    owndata;   /* flag if the structure owns the clientdata */
 } swig_type_info;
 
 /* Structure to store a type and conversion function used for casting */
 typedef struct swig_cast_info {
-  swig_type_info         *type;			/* pointer to type that is equivalent to this type */
-  swig_converter_func     converter;		/* function to cast the void pointers */
-  struct swig_cast_info  *next;			/* pointer to next cast in linked list */
-  struct swig_cast_info  *prev;			/* pointer to the previous cast */
+  swig_type_info         *type;     /* pointer to type that is equivalent to this type */
+  swig_converter_func     converter;    /* function to cast the void pointers */
+  struct swig_cast_info  *next;     /* pointer to next cast in linked list */
+  struct swig_cast_info  *prev;     /* pointer to the previous cast */
 } swig_cast_info;
 
 /* Structure used to store module information
  * Each module generates one structure like this, and the runtime collects
  * all of these structures and stores them in a circularly linked list.*/
 typedef struct swig_module_info {
-  swig_type_info         **types;		/* Array of pointers to swig_type_info structures that are in this module */
-  size_t                 size;		        /* Number of types in this module */
-  struct swig_module_info *next;		/* Pointer to next element in circularly linked list */
-  swig_type_info         **type_initial;	/* Array of initially generated type structures */
-  swig_cast_info         **cast_initial;	/* Array of initially generated casting structures */
-  void                    *clientdata;		/* Language specific module data */
+  swig_type_info         **types;   /* Array of pointers to swig_type_info structures that are in this module */
+  size_t                 size;            /* Number of types in this module */
+  struct swig_module_info *next;    /* Pointer to next element in circularly linked list */
+  swig_type_info         **type_initial;  /* Array of initially generated type structures */
+  swig_cast_info         **cast_initial;  /* Array of initially generated casting structures */
+  void                    *clientdata;    /* Language specific module data */
 } swig_module_info;
 
 /* 
@@ -371,7 +371,7 @@ typedef struct swig_module_info {
 */
 SWIGRUNTIME int
 SWIG_TypeNameComp(const char *f1, const char *l1,
-		  const char *f2, const char *l2) {
+      const char *f2, const char *l2) {
   for (;(f1 != l1) && (f2 != l2); ++f1, ++f2) {
     while ((*f1 == ' ') && (f1 != l1)) ++f1;
     while ((*f2 == ' ') && (f2 != l2)) ++f2;
@@ -527,7 +527,7 @@ SWIG_TypeClientData(swig_type_info *ti, void *clientdata) {
     if (!cast->converter) {
       swig_type_info *tc = cast->type;
       if (!tc->clientdata) {
-	SWIG_TypeClientData(tc, clientdata);
+  SWIG_TypeClientData(tc, clientdata);
       }
     }    
     cast = cast->next;
@@ -550,32 +550,32 @@ SWIG_TypeNewClientData(swig_type_info *ti, void *clientdata) {
 SWIGRUNTIME swig_type_info *
 SWIG_MangledTypeQueryModule(swig_module_info *start, 
                             swig_module_info *end, 
-		            const char *name) {
+                const char *name) {
   swig_module_info *iter = start;
   do {
     if (iter->size) {
       register size_t l = 0;
       register size_t r = iter->size - 1;
       do {
-	/* since l+r >= 0, we can (>> 1) instead (/ 2) */
-	register size_t i = (l + r) >> 1; 
-	const char *iname = iter->types[i]->name;
-	if (iname) {
-	  register int compare = strcmp(name, iname);
-	  if (compare == 0) {	    
-	    return iter->types[i];
-	  } else if (compare < 0) {
-	    if (i) {
-	      r = i - 1;
-	    } else {
-	      break;
-	    }
-	  } else if (compare > 0) {
-	    l = i + 1;
-	  }
-	} else {
-	  break; /* should never happen */
-	}
+  /* since l+r >= 0, we can (>> 1) instead (/ 2) */
+  register size_t i = (l + r) >> 1; 
+  const char *iname = iter->types[i]->name;
+  if (iname) {
+    register int compare = strcmp(name, iname);
+    if (compare == 0) {     
+      return iter->types[i];
+    } else if (compare < 0) {
+      if (i) {
+        r = i - 1;
+      } else {
+        break;
+      }
+    } else if (compare > 0) {
+      l = i + 1;
+    }
+  } else {
+    break; /* should never happen */
+  }
       } while (l <= r);
     }
     iter = iter->next;
@@ -595,7 +595,7 @@ SWIG_MangledTypeQueryModule(swig_module_info *start,
 SWIGRUNTIME swig_type_info *
 SWIG_TypeQueryModule(swig_module_info *start, 
                      swig_module_info *end, 
-		     const char *name) {
+         const char *name) {
   /* STEP 1: Search the name field using binary search */
   swig_type_info *ret = SWIG_MangledTypeQueryModule(start, end, name);
   if (ret) {
@@ -607,8 +607,8 @@ SWIG_TypeQueryModule(swig_module_info *start,
     do {
       register size_t i = 0;
       for (; i < iter->size; ++i) {
-	if (iter->types[i]->str && (SWIG_TypeEquiv(iter->types[i]->str, name)))
-	  return iter->types[i];
+  if (iter->types[i]->str && (SWIG_TypeEquiv(iter->types[i]->str, name)))
+    return iter->types[i];
       }
       iter = iter->next;
     } while (iter != end);
@@ -722,18 +722,18 @@ SWIG_UnpackDataName(const char *c, void *ptr, size_t sz, const char *name) {
 #endif
 
 /*  Errors in SWIG */
-#define  SWIG_UnknownError    	   -1 
-#define  SWIG_IOError        	   -2 
-#define  SWIG_RuntimeError   	   -3 
-#define  SWIG_IndexError     	   -4 
-#define  SWIG_TypeError      	   -5 
-#define  SWIG_DivisionByZero 	   -6 
-#define  SWIG_OverflowError  	   -7 
-#define  SWIG_SyntaxError    	   -8 
-#define  SWIG_ValueError     	   -9 
-#define  SWIG_SystemError    	   -10
-#define  SWIG_AttributeError 	   -11
-#define  SWIG_MemoryError    	   -12 
+#define  SWIG_UnknownError         -1 
+#define  SWIG_IOError            -2 
+#define  SWIG_RuntimeError       -3 
+#define  SWIG_IndexError         -4 
+#define  SWIG_TypeError          -5 
+#define  SWIG_DivisionByZero     -6 
+#define  SWIG_OverflowError      -7 
+#define  SWIG_SyntaxError        -8 
+#define  SWIG_ValueError         -9 
+#define  SWIG_SystemError        -10
+#define  SWIG_AttributeError     -11
+#define  SWIG_MemoryError        -12 
 #define  SWIG_NullReferenceError   -13
 
 
@@ -750,7 +750,7 @@ SWIG_UnpackDataName(const char *c, void *ptr, size_t sz, const char *name) {
 #define PyString_FromString(x) PyUnicode_FromString(x)
 #define PyString_Format(fmt, args)  PyUnicode_Format(fmt, args)
 #define PyString_AsString(str) PyBytes_AsString(str)
-#define PyString_Size(str) PyBytes_Size(str)	
+#define PyString_Size(str) PyBytes_Size(str)  
 #define PyString_InternFromString(key) PyUnicode_InternFromString(key)
 #define Py_TPFLAGS_HAVE_CLASS Py_TPFLAGS_BASETYPE
 #define PyString_AS_STRING(x) PyUnicode_AS_STRING(x)
@@ -920,13 +920,13 @@ static long PyNumber_AsSsize_t (PyObject *x, void *SWIGUNUSEDPARM(exc))
 #endif
 
 #if PY_VERSION_HEX < 0x02040000
-#define Py_VISIT(op)				\
-  do { 						\
-    if (op) {					\
-      int vret = visit((op), arg);		\
-      if (vret)					\
-        return vret;				\
-    }						\
+#define Py_VISIT(op)        \
+  do {            \
+    if (op) {         \
+      int vret = visit((op), arg);    \
+      if (vret)         \
+        return vret;        \
+    }           \
   } while (0)
 #endif
 
@@ -1165,7 +1165,7 @@ SWIGRUNTIME PyObject* SWIG_PyInstanceMethod_New(PyObject *SWIGUNUSEDPARM(self), 
 #define SWIG_NewPointerObj(ptr, type, flags)            SWIG_Python_NewPointerObj(NULL, ptr, type, flags)
 #endif
 
-#define SWIG_InternalNewPointerObj(ptr, type, flags)	SWIG_Python_NewPointerObj(NULL, ptr, type, flags)
+#define SWIG_InternalNewPointerObj(ptr, type, flags)  SWIG_Python_NewPointerObj(NULL, ptr, type, flags)
 
 #define SWIG_CheckImplicit(ty)                          SWIG_Python_CheckImplicit(ty) 
 #define SWIG_AcquirePtr(ptr, src)                       SWIG_Python_AcquirePtr(ptr, src)
@@ -1195,10 +1195,10 @@ SWIGRUNTIME PyObject* SWIG_PyInstanceMethod_New(PyObject *SWIGUNUSEDPARM(self), 
 #define SWIG_NewClientData(obj)                         SwigPyClientData_New(obj)
 
 #define SWIG_SetErrorObj                                SWIG_Python_SetErrorObj                            
-#define SWIG_SetErrorMsg                        	SWIG_Python_SetErrorMsg				   
-#define SWIG_ErrorType(code)                    	SWIG_Python_ErrorType(code)                        
-#define SWIG_Error(code, msg)            		SWIG_Python_SetErrorMsg(SWIG_ErrorType(code), msg) 
-#define SWIG_fail                        		goto fail					   
+#define SWIG_SetErrorMsg                          SWIG_Python_SetErrorMsg          
+#define SWIG_ErrorType(code)                      SWIG_Python_ErrorType(code)                        
+#define SWIG_Error(code, msg)               SWIG_Python_SetErrorMsg(SWIG_ErrorType(code), msg) 
+#define SWIG_fail                           goto fail            
 
 
 /* Runtime API implementation */
@@ -1314,7 +1314,7 @@ SWIG_Python_UnpackTuple(PyObject *args, const char *name, Py_ssize_t min, Py_ssi
       return 1;
     } else {
       PyErr_Format(PyExc_TypeError, "%s expected %s%d arguments, got none", 
-		   name, (min == max ? "" : "at least "), (int)min);
+       name, (min == max ? "" : "at least "), (int)min);
       return 0;
     }
   }  
@@ -1323,7 +1323,7 @@ SWIG_Python_UnpackTuple(PyObject *args, const char *name, Py_ssize_t min, Py_ssi
       register int i;
       objs[0] = args;
       for (i = 1; i < max; ++i) {
-	objs[i] = 0;
+  objs[i] = 0;
       }
       return 2;
     }
@@ -1333,19 +1333,19 @@ SWIG_Python_UnpackTuple(PyObject *args, const char *name, Py_ssize_t min, Py_ssi
     register Py_ssize_t l = PyTuple_GET_SIZE(args);
     if (l < min) {
       PyErr_Format(PyExc_TypeError, "%s expected %s%d arguments, got %d", 
-		   name, (min == max ? "" : "at least "), (int)min, (int)l);
+       name, (min == max ? "" : "at least "), (int)min, (int)l);
       return 0;
     } else if (l > max) {
       PyErr_Format(PyExc_TypeError, "%s expected %s%d arguments, got %d", 
-		   name, (min == max ? "" : "at most "), (int)max, (int)l);
+       name, (min == max ? "" : "at most "), (int)max, (int)l);
       return 0;
     } else {
       register int i;
       for (i = 0; i < l; ++i) {
-	objs[i] = PyTuple_GET_ITEM(args, i);
+  objs[i] = PyTuple_GET_ITEM(args, i);
       }
       for (; l < max; ++l) {
-	objs[l] = 0;
+  objs[l] = 0;
       }
       return i + 1;
     }    
@@ -1354,9 +1354,9 @@ SWIG_Python_UnpackTuple(PyObject *args, const char *name, Py_ssize_t min, Py_ssi
 
 /* A functor is a function object with one single object argument */
 #if PY_VERSION_HEX >= 0x02020000
-#define SWIG_Python_CallFunctor(functor, obj)	        PyObject_CallFunctionObjArgs(functor, obj, NULL);
+#define SWIG_Python_CallFunctor(functor, obj)         PyObject_CallFunctionObjArgs(functor, obj, NULL);
 #else
-#define SWIG_Python_CallFunctor(functor, obj)	        PyObject_CallFunction(functor, "O", obj);
+#define SWIG_Python_CallFunctor(functor, obj)         PyObject_CallFunction(functor, "O", obj);
 #endif
 
 /*
@@ -1379,8 +1379,8 @@ SWIG_Python_UnpackTuple(PyObject *args, const char *name, Py_ssize_t min, Py_ssi
 
 #define SWIG_POINTER_IMPLICIT_CONV  (SWIG_POINTER_DISOWN   << 1)
 
-#define SWIG_BUILTIN_TP_INIT	    (SWIG_POINTER_OWN << 2)
-#define SWIG_BUILTIN_INIT	    (SWIG_BUILTIN_TP_INIT | SWIG_POINTER_OWN)
+#define SWIG_BUILTIN_TP_INIT      (SWIG_POINTER_OWN << 2)
+#define SWIG_BUILTIN_INIT     (SWIG_BUILTIN_TP_INIT | SWIG_POINTER_OWN)
 
 #ifdef __cplusplus
 extern "C" {
@@ -1474,11 +1474,11 @@ SwigPyClientData_New(PyObject* obj)
       data->newraw = PyObject_GetAttrString(data->klass, (char *)"__new__");
 #endif
       if (data->newraw) {
-	Py_INCREF(data->newraw);
-	data->newargs = PyTuple_New(1);
-	PyTuple_SetItem(data->newargs, 0, obj);
+  Py_INCREF(data->newraw);
+  data->newargs = PyTuple_New(1);
+  PyTuple_SetItem(data->newargs, 0, obj);
       } else {
-	data->newargs = obj;
+  data->newargs = obj;
       }
       Py_INCREF(data->newargs);
     }
@@ -1542,11 +1542,11 @@ SwigPyObject_format(const char* fmt, SwigPyObject *v)
       PyObject *ofmt = SWIG_Python_str_FromChar(fmt);
       if (ofmt) {
 #if PY_VERSION_HEX >= 0x03000000
-	res = PyUnicode_Format(ofmt,args);
+  res = PyUnicode_Format(ofmt,args);
 #else
-	res = PyString_Format(ofmt,args);
+  res = PyString_Format(ofmt,args);
 #endif
-	Py_DECREF(ofmt);
+  Py_DECREF(ofmt);
       }
       Py_DECREF(args);
     }
@@ -1693,14 +1693,14 @@ SwigPyObject_dealloc(PyObject *v)
       /* destroy is always a VARARGS method */
       PyObject *res;
       if (data->delargs) {
-	/* we need to create a temporary object to carry the destroy operation */
-	PyObject *tmp = SwigPyObject_New(sobj->ptr, ty, 0);
-	res = SWIG_Python_CallFunctor(destroy, tmp);
-	Py_DECREF(tmp);
+  /* we need to create a temporary object to carry the destroy operation */
+  PyObject *tmp = SwigPyObject_New(sobj->ptr, ty, 0);
+  res = SWIG_Python_CallFunctor(destroy, tmp);
+  Py_DECREF(tmp);
       } else {
-	PyCFunction meth = PyCFunction_GET_FUNCTION(destroy);
-	PyObject *mself = PyCFunction_GET_SELF(destroy);
-	res = ((*meth)(mself, v));
+  PyCFunction meth = PyCFunction_GET_FUNCTION(destroy);
+  PyObject *mself = PyCFunction_GET_SELF(destroy);
+  res = ((*meth)(mself, v));
       }
       Py_XDECREF(res);
     } 
@@ -1792,17 +1792,17 @@ SwigPyObject_own(PyObject *v, PyObject *args)
       PyObject *obj = PyBool_FromLong(sobj->own);
       if (val) {
 #ifdef METH_NOARGS
-	if (PyObject_IsTrue(val)) {
-	  SwigPyObject_acquire(v);
-	} else {
-	  SwigPyObject_disown(v);
-	}
+  if (PyObject_IsTrue(val)) {
+    SwigPyObject_acquire(v);
+  } else {
+    SwigPyObject_disown(v);
+  }
 #else
-	if (PyObject_IsTrue(val)) {
-	  SwigPyObject_acquire(v,args);
-	} else {
-	  SwigPyObject_disown(v,args);
-	}
+  if (PyObject_IsTrue(val)) {
+    SwigPyObject_acquire(v,args);
+  } else {
+    SwigPyObject_disown(v,args);
+  }
 #endif
       } 
       return obj;
@@ -1860,12 +1860,12 @@ SwigPyObject_TypeOnce(void) {
     (unaryfunc)0,  /*nb_positive*/
     (unaryfunc)0,  /*nb_absolute*/
     (inquiry)0,    /*nb_nonzero*/
-    0,		   /*nb_invert*/
-    0,		   /*nb_lshift*/
-    0,		   /*nb_rshift*/
-    0,		   /*nb_and*/
-    0,		   /*nb_xor*/
-    0,		   /*nb_or*/
+    0,       /*nb_invert*/
+    0,       /*nb_lshift*/
+    0,       /*nb_rshift*/
+    0,       /*nb_and*/
+    0,       /*nb_xor*/
+    0,       /*nb_or*/
 #if PY_VERSION_HEX < 0x03000000
     0,   /*nb_coerce*/
 #endif
@@ -2249,16 +2249,16 @@ SWIG_Python_GetSwigThis(PyObject *pyobj)
     } else {
 #ifdef PyWeakref_CheckProxy
       if (PyWeakref_CheckProxy(pyobj)) {
-	PyObject *wobj = PyWeakref_GET_OBJECT(pyobj);
-	return wobj ? SWIG_Python_GetSwigThis(wobj) : 0;
+  PyObject *wobj = PyWeakref_GET_OBJECT(pyobj);
+  return wobj ? SWIG_Python_GetSwigThis(wobj) : 0;
       }
 #endif
       obj = PyObject_GetAttr(pyobj,SWIG_This());
       if (obj) {
-	Py_DECREF(obj);
+  Py_DECREF(obj);
       } else {
-	if (PyErr_Occurred()) PyErr_Clear();
-	return 0;
+  if (PyErr_Occurred()) PyErr_Clear();
+  return 0;
       }
     }
   }
@@ -2379,7 +2379,7 @@ SWIG_Python_ConvertPtrAndOwn(PyObject *obj, void **ptr, swig_type_info *ty, int 
                   res = SWIG_AddCast(res);
                   res = SWIG_AddNewMask(res);
                 } else {
-                  res = SWIG_AddCast(res);		    
+                  res = SWIG_AddCast(res);        
                 }
               }
             }
@@ -2461,12 +2461,12 @@ SWIG_Python_NewShadowInstance(SwigPyClientData *data, PyObject *swig_this)
 #if !defined(SWIG_PYTHON_SLOW_GETSET_THIS)
       PyObject **dictptr = _PyObject_GetDictPtr(inst);
       if (dictptr != NULL) {
-	PyObject *dict = *dictptr;
-	if (dict == NULL) {
-	  dict = PyDict_New();
-	  *dictptr = dict;
-	  PyDict_SetItem(dict, SWIG_This(), swig_this);
-	}
+  PyObject *dict = *dictptr;
+  if (dict == NULL) {
+    dict = PyDict_New();
+    *dictptr = dict;
+    PyDict_SetItem(dict, SWIG_This(), swig_this);
+  }
       }
 #else
       PyObject *key = SWIG_This();
@@ -2582,7 +2582,7 @@ SWIG_Python_NewPointerObj(PyObject *self, void *ptr, swig_type_info *type, int f
       if (newobj->ptr) {
         PyObject *next_self = clientdata->pytype->tp_alloc(clientdata->pytype, 0);
         while (newobj->next)
-	  newobj = (SwigPyObject *) newobj->next;
+    newobj = (SwigPyObject *) newobj->next;
         newobj->next = next_self;
         newobj = (SwigPyObject *)next_self;
       }
@@ -2640,7 +2640,7 @@ SWIG_Python_GetModule(void *SWIGUNUSEDPARM(clientdata)) {
     type_pointer = PyCapsule_Import(SWIGPY_CAPSULE_NAME, 0);
 # else
     type_pointer = PyCObject_Import((char*)"swig_runtime_data" SWIG_RUNTIME_VERSION,
-				    (char*)"type_pointer" SWIG_TYPE_TABLE_NAME);
+            (char*)"type_pointer" SWIG_TYPE_TABLE_NAME);
 # endif
     if (PyErr_Occurred()) {
       PyErr_Clear();
@@ -2660,12 +2660,12 @@ PyModule_AddObject(PyObject *m, char *name, PyObject *o)
   PyObject *dict;
   if (!PyModule_Check(m)) {
     PyErr_SetString(PyExc_TypeError,
-		    "PyModule_AddObject() needs module as first arg");
+        "PyModule_AddObject() needs module as first arg");
     return SWIG_ERROR;
   }
   if (!o) {
     PyErr_SetString(PyExc_TypeError,
-		    "PyModule_AddObject() needs non-NULL value");
+        "PyModule_AddObject() needs non-NULL value");
     return SWIG_ERROR;
   }
   
@@ -2673,7 +2673,7 @@ PyModule_AddObject(PyObject *m, char *name, PyObject *o)
   if (dict == NULL) {
     /* Internal error -- modules must have a dict! */
     PyErr_Format(PyExc_SystemError, "module '%s' has no __dict__",
-		 PyModule_GetName(m));
+     PyModule_GetName(m));
     return SWIG_ERROR;
   }
   if (PyDict_SetItemString(dict, name, o))
@@ -2792,9 +2792,9 @@ SWIG_Python_AddErrMesg(const char* mesg, int infront)
       Py_XINCREF(type);
       PyErr_Clear();
       if (infront) {
-	PyErr_Format(type, "%s %s", mesg, tmp = SWIG_Python_str_AsChar(old_str));
+  PyErr_Format(type, "%s %s", mesg, tmp = SWIG_Python_str_AsChar(old_str));
       } else {
-	PyErr_Format(type, "%s %s", tmp = SWIG_Python_str_AsChar(old_str), mesg);
+  PyErr_Format(type, "%s %s", tmp = SWIG_Python_str_AsChar(old_str), mesg);
       }
       SWIG_Python_str_DelForPy3(tmp);
       Py_DECREF(old_str);
@@ -2834,27 +2834,27 @@ SWIG_Python_TypeError(const char *type, PyObject *obj)
     if (obj && SwigPyObject_Check(obj)) {
       const char *otype = (const char *) SwigPyObject_GetDesc(obj);
       if (otype) {
-	PyErr_Format(PyExc_TypeError, "a '%s' is expected, 'SwigPyObject(%s)' is received",
-		     type, otype);
-	return;
+  PyErr_Format(PyExc_TypeError, "a '%s' is expected, 'SwigPyObject(%s)' is received",
+         type, otype);
+  return;
       }
     } else 
 #endif      
     {
       const char *otype = (obj ? obj->ob_type->tp_name : 0); 
       if (otype) {
-	PyObject *str = PyObject_Str(obj);
-	const char *cstr = str ? SWIG_Python_str_AsChar(str) : 0;
-	if (cstr) {
-	  PyErr_Format(PyExc_TypeError, "a '%s' is expected, '%s(%s)' is received",
-		       type, otype, cstr);
+  PyObject *str = PyObject_Str(obj);
+  const char *cstr = str ? SWIG_Python_str_AsChar(str) : 0;
+  if (cstr) {
+    PyErr_Format(PyExc_TypeError, "a '%s' is expected, '%s(%s)' is received",
+           type, otype, cstr);
           SWIG_Python_str_DelForPy3(cstr);
-	} else {
-	  PyErr_Format(PyExc_TypeError, "a '%s' is expected, '%s' is received",
-		       type, otype);
-	}
-	Py_XDECREF(str);
-	return;
+  } else {
+    PyErr_Format(PyExc_TypeError, "a '%s' is expected, '%s' is received",
+           type, otype);
+  }
+  Py_XDECREF(str);
+  return;
       }
     }   
     PyErr_Format(PyExc_TypeError, "a '%s' is expected", type);
@@ -3199,9 +3199,9 @@ namespace swig {
       static int init = 0;
       static swig_type_info* desc = 0;
       if (!init) {
-	desc = SWIG_TypeQuery("swig::SwigPyIterator *");
-	init = 1;
-      }	
+  desc = SWIG_TypeQuery("swig::SwigPyIterator *");
+  init = 1;
+      } 
       return desc;
     }    
   };
@@ -3248,10 +3248,10 @@ SWIG_AsVal_double (PyObject *obj, double *val)
     if (!dispatch) {
       long v = PyLong_AsLong(obj);
       if (!PyErr_Occurred()) {
-	if (val) *val = v;
-	return SWIG_AddCast(SWIG_AddCast(SWIG_OK));
+  if (val) *val = v;
+  return SWIG_AddCast(SWIG_AddCast(SWIG_OK));
       } else {
-	PyErr_Clear();
+  PyErr_Clear();
       }
     }
   }
@@ -3345,8 +3345,8 @@ SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val)
       double d;
       int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
       if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, ULONG_MAX)) {
-	if (val) *val = (unsigned long)(d);
-	return res;
+  if (val) *val = (unsigned long)(d);
+  return res;
       }
     }
   }
@@ -3411,8 +3411,8 @@ SWIG_AsVal_long (PyObject *obj, long* val)
       double d;
       int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
       if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, LONG_MAX)) {
-	if (val) *val = (long)(d);
-	return res;
+  if (val) *val = (long)(d);
+  return res;
       }
     }
   }
@@ -3533,33 +3533,33 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
 #endif
     if (cptr) {
       if (alloc) {
-	/* 
-	   In python the user should not be able to modify the inner
-	   string representation. To warranty that, if you define
-	   SWIG_PYTHON_SAFE_CSTRINGS, a new/copy of the python string
-	   buffer is always returned.
+  /* 
+     In python the user should not be able to modify the inner
+     string representation. To warranty that, if you define
+     SWIG_PYTHON_SAFE_CSTRINGS, a new/copy of the python string
+     buffer is always returned.
 
-	   The default behavior is just to return the pointer value,
-	   so, be careful.
-	*/ 
+     The default behavior is just to return the pointer value,
+     so, be careful.
+  */ 
 #if defined(SWIG_PYTHON_SAFE_CSTRINGS)
-	if (*alloc != SWIG_OLDOBJ) 
+  if (*alloc != SWIG_OLDOBJ) 
 #else
-	if (*alloc == SWIG_NEWOBJ) 
+  if (*alloc == SWIG_NEWOBJ) 
 #endif
-	  {
-	    *cptr = reinterpret_cast< char* >(memcpy((new char[len + 1]), cstr, sizeof(char)*(len + 1)));
-	    *alloc = SWIG_NEWOBJ;
-	  }
-	else {
-	  *cptr = cstr;
-	  *alloc = SWIG_OLDOBJ;
-	}
+    {
+      *cptr = reinterpret_cast< char* >(memcpy((new char[len + 1]), cstr, sizeof(char)*(len + 1)));
+      *alloc = SWIG_NEWOBJ;
+    }
+  else {
+    *cptr = cstr;
+    *alloc = SWIG_OLDOBJ;
+  }
       } else {
         #if PY_VERSION_HEX>=0x03000000
         assert(0); /* Should never reach here in Python 3 */
         #endif
-	*cptr = SWIG_Python_str_AsChar(obj);
+  *cptr = SWIG_Python_str_AsChar(obj);
       }
     }
     if (psize) *psize = len + 1;
@@ -3572,10 +3572,10 @@ SWIG_AsCharPtrAndSize(PyObject *obj, char** cptr, size_t* psize, int *alloc)
     if (pchar_descriptor) {
       void* vptr = 0;
       if (SWIG_ConvertPtr(obj, &vptr, pchar_descriptor, 0) == SWIG_OK) {
-	if (cptr) *cptr = (char *) vptr;
-	if (psize) *psize = vptr ? (strlen((char *)vptr) + 1) : 0;
-	if (alloc) *alloc = SWIG_OLDOBJ;
-	return SWIG_OK;
+  if (cptr) *cptr = (char *) vptr;
+  if (psize) *psize = vptr ? (strlen((char *)vptr) + 1) : 0;
+  if (alloc) *alloc = SWIG_OLDOBJ;
+  return SWIG_OK;
       }
     }
   }
@@ -3738,7 +3738,7 @@ namespace swig {
       Type *p;
       int res = SWIG_ConvertPtr(obj, (void**)&p, type_info<Type>(), 0);
       if (SWIG_IsOK(res)) {
-	if (val) *val = p;
+  if (val) *val = p;
       }
       return res;
     }
@@ -3753,22 +3753,22 @@ namespace swig {
   struct traits_asval {
     static int asval(PyObject *obj, Type *val) {
       if (val) {
-	Type *p = 0;
-	int res = traits_asptr<Type>::asptr(obj, &p);
-	if (!SWIG_IsOK(res)) return res;	
-	if (p) {
-	  typedef typename noconst_traits<Type>::noconst_type noconst_type;
-	  *(const_cast<noconst_type*>(val)) = *p;
-	  if (SWIG_IsNewObj(res)){
-	    delete p;
-	    res = SWIG_DelNewMask(res);
-	  }
-	  return res;
-	} else {
-	  return SWIG_ERROR;
-	}
+  Type *p = 0;
+  int res = traits_asptr<Type>::asptr(obj, &p);
+  if (!SWIG_IsOK(res)) return res;  
+  if (p) {
+    typedef typename noconst_traits<Type>::noconst_type noconst_type;
+    *(const_cast<noconst_type*>(val)) = *p;
+    if (SWIG_IsNewObj(res)){
+      delete p;
+      res = SWIG_DelNewMask(res);
+    }
+    return res;
+  } else {
+    return SWIG_ERROR;
+  }
       } else {
-	return traits_asptr<Type>::asptr(obj, (Type **)(0));
+  return traits_asptr<Type>::asptr(obj, (Type **)(0));
       }
     }
   };
@@ -3781,10 +3781,10 @@ namespace swig {
         int res = traits_asptr<noconst_type>::asptr(obj,  &p);
         if (SWIG_IsOK(res)) {
           *(const_cast<noconst_type**>(val)) = p;
-	}
-	return res;
+  }
+  return res;
       } else {
-	return traits_asptr<Type>::asptr(obj, (Type **)(0));
+  return traits_asptr<Type>::asptr(obj, (Type **)(0));
       }
     }
   };
@@ -3800,10 +3800,10 @@ namespace swig {
       Type v;
       int res = asval(obj, &v);
       if (!obj || !SWIG_IsOK(res)) {
-	if (!PyErr_Occurred()) {
-	  ::SWIG_Error(SWIG_TypeError,  swig::type_name<Type>());
-	}
-	if (throw_error) throw std::invalid_argument("bad type");
+  if (!PyErr_Occurred()) {
+    ::SWIG_Error(SWIG_TypeError,  swig::type_name<Type>());
+  }
+  if (throw_error) throw std::invalid_argument("bad type");
       }
       return v;
     }
@@ -3815,22 +3815,22 @@ namespace swig {
       Type *v = 0;      
       int res = (obj ? traits_asptr<Type>::asptr(obj, &v) : SWIG_ERROR);
       if (SWIG_IsOK(res) && v) {
-	if (SWIG_IsNewObj(res)) {
-	  Type r(*v);
-	  delete v;
-	  return r;
-	} else {
-	  return *v;
-	}
+  if (SWIG_IsNewObj(res)) {
+    Type r(*v);
+    delete v;
+    return r;
+  } else {
+    return *v;
+  }
       } else {
-	// Uninitialized return value, no Type() constructor required.
-	static Type *v_def = (Type*) malloc(sizeof(Type));
-	if (!PyErr_Occurred()) {
-	  SWIG_Error(SWIG_TypeError,  swig::type_name<Type>());
-	}
-	if (throw_error) throw std::invalid_argument("bad type");
-	memset(v_def,0,sizeof(Type));
-	return *v_def;
+  // Uninitialized return value, no Type() constructor required.
+  static Type *v_def = (Type*) malloc(sizeof(Type));
+  if (!PyErr_Occurred()) {
+    SWIG_Error(SWIG_TypeError,  swig::type_name<Type>());
+  }
+  if (throw_error) throw std::invalid_argument("bad type");
+  memset(v_def,0,sizeof(Type));
+  return *v_def;
       }
     }
   };
@@ -3841,13 +3841,13 @@ namespace swig {
       Type *v = 0;      
       int res = (obj ? traits_asptr<Type>::asptr(obj, &v) : SWIG_ERROR);
       if (SWIG_IsOK(res)) {
-	return v;
+  return v;
       } else {
-	if (!PyErr_Occurred()) {
-	  SWIG_Error(SWIG_TypeError,  swig::type_name<Type>());
-	}
-	if (throw_error) throw std::invalid_argument("bad type");
-	return 0;
+  if (!PyErr_Occurred()) {
+    SWIG_Error(SWIG_TypeError,  swig::type_name<Type>());
+  }
+  if (throw_error) throw std::invalid_argument("bad type");
+  return 0;
       }
     }
   };
@@ -3967,7 +3967,7 @@ namespace swig {
   check_index(Difference i, size_t size, bool insert = false) {
     if ( i < 0 ) {
       if ((size_t) (-i) <= size)
-	return (size_t) (i + size);
+  return (size_t) (i + size);
     } else if ( (size_t) i < size ) {
       return (size_t) i;
     } else if (insert && ((size_t) i == size)) {
@@ -4247,9 +4247,9 @@ namespace swig {
     {
       const self_type *iters = dynamic_cast<const self_type *>(&iter);
       if (iters) {
-	return (current == iters->get_current());
+  return (current == iters->get_current());
       } else {
-	throw std::invalid_argument("bad iterator type");
+  throw std::invalid_argument("bad iterator type");
       }
     }
     
@@ -4257,9 +4257,9 @@ namespace swig {
     {
       const self_type *iters = dynamic_cast<const self_type *>(&iter);
       if (iters) {
-	return std::distance(current, iters->get_current());
+  return std::distance(current, iters->get_current());
       } else {
-	throw std::invalid_argument("bad iterator type");
+  throw std::invalid_argument("bad iterator type");
       }
     }    
     
@@ -4279,8 +4279,8 @@ namespace swig {
   };
 
   template<typename OutIterator, 
-	   typename ValueType = typename std::iterator_traits<OutIterator>::value_type,
-	   typename FromOper = from_oper<ValueType> >
+     typename ValueType = typename std::iterator_traits<OutIterator>::value_type,
+     typename FromOper = from_oper<ValueType> >
   class SwigPyIteratorOpen_T :  public SwigPyIterator_T<OutIterator>
   {
   public:
@@ -4307,7 +4307,7 @@ namespace swig {
     SwigPyIterator *incr(size_t n = 1)
     {
       while (n--) {
-	++base::current;
+  ++base::current;
       }
       return this;
     }
@@ -4315,15 +4315,15 @@ namespace swig {
     SwigPyIterator *decr(size_t n = 1)
     {
       while (n--) {
-	--base::current;
+  --base::current;
       }
       return this;
     }
   };
 
   template<typename OutIterator, 
-	   typename ValueType = typename std::iterator_traits<OutIterator>::value_type,
-	   typename FromOper = from_oper<ValueType> >
+     typename ValueType = typename std::iterator_traits<OutIterator>::value_type,
+     typename FromOper = from_oper<ValueType> >
   class SwigPyIteratorClosed_T :  public SwigPyIterator_T<OutIterator>
   {
   public:
@@ -4340,9 +4340,9 @@ namespace swig {
     
     PyObject *value() const {
       if (base::current == end) {
-	throw stop_iteration();
+  throw stop_iteration();
       } else {
-	return from(static_cast<const value_type&>(*(base::current)));
+  return from(static_cast<const value_type&>(*(base::current)));
       }
     }
     
@@ -4354,11 +4354,11 @@ namespace swig {
     SwigPyIterator *incr(size_t n = 1)
     {
       while (n--) {
-	if (base::current == end) {
-	  throw stop_iteration();
-	} else {
-	  ++base::current;
-	}
+  if (base::current == end) {
+    throw stop_iteration();
+  } else {
+    ++base::current;
+  }
       }
       return this;
     }
@@ -4366,11 +4366,11 @@ namespace swig {
     SwigPyIterator *decr(size_t n = 1)
     {
       while (n--) {
-	if (base::current == begin) {
-	  throw stop_iteration();
-	} else {
-	  --base::current;
-	}
+  if (base::current == begin) {
+    throw stop_iteration();
+  } else {
+    --base::current;
+  }
       }
       return this;
     }
@@ -4411,16 +4411,16 @@ namespace swig
     {
       swig::SwigVar_PyObject item = PySequence_GetItem(_seq, _index);
       try {
-	return swig::as<T>(item, true);
+  return swig::as<T>(item, true);
       } catch (std::exception& e) {
-	char msg[1024];
-	sprintf(msg, "in sequence element %d ", _index);
-	if (!PyErr_Occurred()) {
-	  ::SWIG_Error(SWIG_TypeError,  swig::type_name<T>());
-	}
-	SWIG_Python_AddErrorMsg(msg);
-	SWIG_Python_AddErrorMsg(e.what());
-	throw;
+  char msg[1024];
+  sprintf(msg, "in sequence element %d ", _index);
+  if (!PyErr_Occurred()) {
+    ::SWIG_Error(SWIG_TypeError,  swig::type_name<T>());
+  }
+  SWIG_Python_AddErrorMsg(msg);
+  SWIG_Python_AddErrorMsg(e.what());
+  throw;
       }
     }
 
@@ -4555,7 +4555,7 @@ namespace swig
     SwigPySequence_Cont(PyObject* seq) : _seq(0)
     {
       if (!PySequence_Check(seq)) {
-	throw std::invalid_argument("a sequence is expected");
+  throw std::invalid_argument("a sequence is expected");
       }
       _seq = seq;
       Py_INCREF(_seq);
@@ -4610,15 +4610,15 @@ namespace swig
     {
       int s = size();
       for (int i = 0; i < s; ++i) {
-	swig::SwigVar_PyObject item = PySequence_GetItem(_seq, i);
-	if (!swig::check<value_type>(item)) {
-	  if (set_err) {
-	    char msg[1024];
-	    sprintf(msg, "in sequence element %d", i);
-	    SWIG_Error(SWIG_RuntimeError, msg);
-	  }
-	  return false;
-	}
+  swig::SwigVar_PyObject item = PySequence_GetItem(_seq, i);
+  if (!swig::check<value_type>(item)) {
+    if (set_err) {
+      char msg[1024];
+      sprintf(msg, "in sequence element %d", i);
+      SWIG_Error(SWIG_RuntimeError, msg);
+    }
+    return false;
+  }
       }
       return true;
     }
@@ -4700,31 +4700,31 @@ namespace swig {
 
     static int asptr(PyObject *obj, sequence **seq) {
       if (obj == Py_None || SWIG_Python_GetSwigThis(obj)) {
-	sequence *p;
-	if (::SWIG_ConvertPtr(obj,(void**)&p,
-			      swig::type_info<sequence>(),0) == SWIG_OK) {
-	  if (seq) *seq = p;
-	  return SWIG_OLDOBJ;
-	}
+  sequence *p;
+  if (::SWIG_ConvertPtr(obj,(void**)&p,
+            swig::type_info<sequence>(),0) == SWIG_OK) {
+    if (seq) *seq = p;
+    return SWIG_OLDOBJ;
+  }
       } else if (PySequence_Check(obj)) {
-	try {
-	  SwigPySequence_Cont<value_type> swigpyseq(obj);
-	  if (seq) {
-	    sequence *pseq = new sequence();
-	    assign(swigpyseq, pseq);
-	    *seq = pseq;
-	    return SWIG_NEWOBJ;
-	  } else {
-	    return swigpyseq.check() ? SWIG_OK : SWIG_ERROR;
-	  }
-	} catch (std::exception& e) {
-	  if (seq) {
-	    if (!PyErr_Occurred()) {
-	      PyErr_SetString(PyExc_TypeError, e.what());
-	    }
-	  }
-	  return SWIG_ERROR;
-	}
+  try {
+    SwigPySequence_Cont<value_type> swigpyseq(obj);
+    if (seq) {
+      sequence *pseq = new sequence();
+      assign(swigpyseq, pseq);
+      *seq = pseq;
+      return SWIG_NEWOBJ;
+    } else {
+      return swigpyseq.check() ? SWIG_OK : SWIG_ERROR;
+    }
+  } catch (std::exception& e) {
+    if (seq) {
+      if (!PyErr_Occurred()) {
+        PyErr_SetString(PyExc_TypeError, e.what());
+      }
+    }
+    return SWIG_ERROR;
+  }
       }
       return SWIG_ERROR;
     }
@@ -4741,21 +4741,21 @@ namespace swig {
 #ifdef SWIG_PYTHON_EXTRA_NATIVE_CONTAINERS
       swig_type_info *desc = swig::type_info<sequence>();
       if (desc && desc->clientdata) {
-	return SWIG_NewPointerObj(new sequence(seq), desc, SWIG_POINTER_OWN);
+  return SWIG_NewPointerObj(new sequence(seq), desc, SWIG_POINTER_OWN);
       }
 #endif
       size_type size = seq.size();
       if (size <= (size_type)INT_MAX) {
-	PyObject *obj = PyTuple_New((int)size);
-	int i = 0;
-	for (const_iterator it = seq.begin();
-	     it != seq.end(); ++it, ++i) {
-	  PyTuple_SetItem(obj,i,swig::from<value_type>(*it));
-	}
-	return obj;
+  PyObject *obj = PyTuple_New((int)size);
+  int i = 0;
+  for (const_iterator it = seq.begin();
+       it != seq.end(); ++it, ++i) {
+    PyTuple_SetItem(obj,i,swig::from<value_type>(*it));
+  }
+  return obj;
       } else {
-	PyErr_SetString(PyExc_OverflowError,"sequence size not valid in python");
-	return NULL;
+  PyErr_SetString(PyExc_OverflowError,"sequence size not valid in python");
+  return NULL;
       }
     }
   };
@@ -4766,26 +4766,26 @@ namespace swig {
     template <class T>
     struct traits_asptr<std::vector<T> >  {
       static int asptr(PyObject *obj, std::vector<T> **vec) {
-	return traits_asptr_stdseq<std::vector<T> >::asptr(obj, vec);
+  return traits_asptr_stdseq<std::vector<T> >::asptr(obj, vec);
       }
     };
     
     template <class T>
     struct traits_from<std::vector<T> > {
       static PyObject *from(const std::vector<T>& vec) {
-	return traits_from_stdseq<std::vector<T> >::from(vec);
+  return traits_from_stdseq<std::vector<T> >::from(vec);
       }
     };
   }
 
 
       namespace swig {
-	template <>  struct traits<std::vector<unsigned char, std::allocator< unsigned char > > > {
-	  typedef pointer_category category;
-	  static const char* type_name() {
-	    return "std::vector<" "unsigned char" "," "std::allocator< unsigned char >" " >";
-	  }
-	};
+  template <>  struct traits<std::vector<unsigned char, std::allocator< unsigned char > > > {
+    typedef pointer_category category;
+    static const char* type_name() {
+      return "std::vector<" "unsigned char" "," "std::allocator< unsigned char >" " >";
+    }
+  };
       }
     
 SWIGINTERN swig::SwigPyIterator *std_vector_Sl_unsigned_SS_char_Sg__iterator(std::vector< unsigned char > *self,PyObject **PYTHON_SELF){
@@ -4809,7 +4809,7 @@ SWIG_From_size_t  (size_t value)
 
 SWIGINTERN std::vector< unsigned char >::value_type std_vector_Sl_unsigned_SS_char_Sg__pop(std::vector< unsigned char > *self){
       if (self->size() == 0)
-	throw std::out_of_range("pop from empty container");
+  throw std::out_of_range("pop from empty container");
       std::vector<unsigned char,std::allocator< unsigned char > >::value_type x = self->back();
       self->pop_back();
       return x;
@@ -7867,69 +7867,69 @@ SWIGINTERN PyObject *vectoruc_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObj
 }
 
 static PyMethodDef SwigMethods[] = {
-	 { (char *)"SWIG_PyInstanceMethod_New", (PyCFunction)SWIG_PyInstanceMethod_New, METH_O, NULL},
-	 { (char *)"delete_SwigPyIterator", _wrap_delete_SwigPyIterator, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_value", _wrap_SwigPyIterator_value, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_incr", _wrap_SwigPyIterator_incr, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_decr", _wrap_SwigPyIterator_decr, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_distance", _wrap_SwigPyIterator_distance, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_equal", _wrap_SwigPyIterator_equal, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_copy", _wrap_SwigPyIterator_copy, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_next", _wrap_SwigPyIterator_next, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator___next__", _wrap_SwigPyIterator___next__, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_previous", _wrap_SwigPyIterator_previous, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_advance", _wrap_SwigPyIterator_advance, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator___eq__", _wrap_SwigPyIterator___eq__, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator___ne__", _wrap_SwigPyIterator___ne__, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator___iadd__", _wrap_SwigPyIterator___iadd__, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator___isub__", _wrap_SwigPyIterator___isub__, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator___add__", _wrap_SwigPyIterator___add__, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator___sub__", _wrap_SwigPyIterator___sub__, METH_VARARGS, NULL},
-	 { (char *)"SwigPyIterator_swigregister", SwigPyIterator_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_RaptorEncoder", _wrap_new_RaptorEncoder, METH_VARARGS, NULL},
-	 { (char *)"delete_RaptorEncoder", _wrap_delete_RaptorEncoder, METH_VARARGS, NULL},
-	 { (char *)"RaptorEncoder_set_data", _wrap_RaptorEncoder_set_data, METH_VARARGS, NULL},
-	 { (char *)"RaptorEncoder_get_data_access", _wrap_RaptorEncoder_get_data_access, METH_VARARGS, NULL},
-	 { (char *)"RaptorEncoder_get_encodedSym", _wrap_RaptorEncoder_get_encodedSym, METH_VARARGS, NULL},
-	 { (char *)"RaptorEncoder_is_empty", _wrap_RaptorEncoder_is_empty, METH_VARARGS, NULL},
-	 { (char *)"RaptorEncoder_count_encodedSym", _wrap_RaptorEncoder_count_encodedSym, METH_VARARGS, NULL},
-	 { (char *)"RaptorEncoder_stringToVector", _wrap_RaptorEncoder_stringToVector, METH_VARARGS, NULL},
-	 { (char *)"RaptorEncoder_swigregister", RaptorEncoder_swigregister, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_iterator", _wrap_vectoruc_iterator, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___nonzero__", _wrap_vectoruc___nonzero__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___bool__", _wrap_vectoruc___bool__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___len__", _wrap_vectoruc___len__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_pop", _wrap_vectoruc_pop, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___getslice__", _wrap_vectoruc___getslice__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___setslice__", _wrap_vectoruc___setslice__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___delslice__", _wrap_vectoruc___delslice__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___delitem__", _wrap_vectoruc___delitem__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___getitem__", _wrap_vectoruc___getitem__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc___setitem__", _wrap_vectoruc___setitem__, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_append", _wrap_vectoruc_append, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_empty", _wrap_vectoruc_empty, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_size", _wrap_vectoruc_size, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_clear", _wrap_vectoruc_clear, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_swap", _wrap_vectoruc_swap, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_get_allocator", _wrap_vectoruc_get_allocator, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_begin", _wrap_vectoruc_begin, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_end", _wrap_vectoruc_end, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_rbegin", _wrap_vectoruc_rbegin, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_rend", _wrap_vectoruc_rend, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_pop_back", _wrap_vectoruc_pop_back, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_erase", _wrap_vectoruc_erase, METH_VARARGS, NULL},
-	 { (char *)"new_vectoruc", _wrap_new_vectoruc, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_push_back", _wrap_vectoruc_push_back, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_front", _wrap_vectoruc_front, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_back", _wrap_vectoruc_back, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_assign", _wrap_vectoruc_assign, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_resize", _wrap_vectoruc_resize, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_insert", _wrap_vectoruc_insert, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_reserve", _wrap_vectoruc_reserve, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_capacity", _wrap_vectoruc_capacity, METH_VARARGS, NULL},
-	 { (char *)"delete_vectoruc", _wrap_delete_vectoruc, METH_VARARGS, NULL},
-	 { (char *)"vectoruc_swigregister", vectoruc_swigregister, METH_VARARGS, NULL},
-	 { NULL, NULL, 0, NULL }
+   { (char *)"SWIG_PyInstanceMethod_New", (PyCFunction)SWIG_PyInstanceMethod_New, METH_O, NULL},
+   { (char *)"delete_SwigPyIterator", _wrap_delete_SwigPyIterator, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_value", _wrap_SwigPyIterator_value, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_incr", _wrap_SwigPyIterator_incr, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_decr", _wrap_SwigPyIterator_decr, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_distance", _wrap_SwigPyIterator_distance, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_equal", _wrap_SwigPyIterator_equal, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_copy", _wrap_SwigPyIterator_copy, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_next", _wrap_SwigPyIterator_next, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator___next__", _wrap_SwigPyIterator___next__, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_previous", _wrap_SwigPyIterator_previous, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_advance", _wrap_SwigPyIterator_advance, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator___eq__", _wrap_SwigPyIterator___eq__, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator___ne__", _wrap_SwigPyIterator___ne__, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator___iadd__", _wrap_SwigPyIterator___iadd__, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator___isub__", _wrap_SwigPyIterator___isub__, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator___add__", _wrap_SwigPyIterator___add__, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator___sub__", _wrap_SwigPyIterator___sub__, METH_VARARGS, NULL},
+   { (char *)"SwigPyIterator_swigregister", SwigPyIterator_swigregister, METH_VARARGS, NULL},
+   { (char *)"new_RaptorEncoder", _wrap_new_RaptorEncoder, METH_VARARGS, NULL},
+   { (char *)"delete_RaptorEncoder", _wrap_delete_RaptorEncoder, METH_VARARGS, NULL},
+   { (char *)"RaptorEncoder_set_data", _wrap_RaptorEncoder_set_data, METH_VARARGS, NULL},
+   { (char *)"RaptorEncoder_get_data_access", _wrap_RaptorEncoder_get_data_access, METH_VARARGS, NULL},
+   { (char *)"RaptorEncoder_get_encodedSym", _wrap_RaptorEncoder_get_encodedSym, METH_VARARGS, NULL},
+   { (char *)"RaptorEncoder_is_empty", _wrap_RaptorEncoder_is_empty, METH_VARARGS, NULL},
+   { (char *)"RaptorEncoder_count_encodedSym", _wrap_RaptorEncoder_count_encodedSym, METH_VARARGS, NULL},
+   { (char *)"RaptorEncoder_stringToVector", _wrap_RaptorEncoder_stringToVector, METH_VARARGS, NULL},
+   { (char *)"RaptorEncoder_swigregister", RaptorEncoder_swigregister, METH_VARARGS, NULL},
+   { (char *)"vectoruc_iterator", _wrap_vectoruc_iterator, METH_VARARGS, NULL},
+   { (char *)"vectoruc___nonzero__", _wrap_vectoruc___nonzero__, METH_VARARGS, NULL},
+   { (char *)"vectoruc___bool__", _wrap_vectoruc___bool__, METH_VARARGS, NULL},
+   { (char *)"vectoruc___len__", _wrap_vectoruc___len__, METH_VARARGS, NULL},
+   { (char *)"vectoruc_pop", _wrap_vectoruc_pop, METH_VARARGS, NULL},
+   { (char *)"vectoruc___getslice__", _wrap_vectoruc___getslice__, METH_VARARGS, NULL},
+   { (char *)"vectoruc___setslice__", _wrap_vectoruc___setslice__, METH_VARARGS, NULL},
+   { (char *)"vectoruc___delslice__", _wrap_vectoruc___delslice__, METH_VARARGS, NULL},
+   { (char *)"vectoruc___delitem__", _wrap_vectoruc___delitem__, METH_VARARGS, NULL},
+   { (char *)"vectoruc___getitem__", _wrap_vectoruc___getitem__, METH_VARARGS, NULL},
+   { (char *)"vectoruc___setitem__", _wrap_vectoruc___setitem__, METH_VARARGS, NULL},
+   { (char *)"vectoruc_append", _wrap_vectoruc_append, METH_VARARGS, NULL},
+   { (char *)"vectoruc_empty", _wrap_vectoruc_empty, METH_VARARGS, NULL},
+   { (char *)"vectoruc_size", _wrap_vectoruc_size, METH_VARARGS, NULL},
+   { (char *)"vectoruc_clear", _wrap_vectoruc_clear, METH_VARARGS, NULL},
+   { (char *)"vectoruc_swap", _wrap_vectoruc_swap, METH_VARARGS, NULL},
+   { (char *)"vectoruc_get_allocator", _wrap_vectoruc_get_allocator, METH_VARARGS, NULL},
+   { (char *)"vectoruc_begin", _wrap_vectoruc_begin, METH_VARARGS, NULL},
+   { (char *)"vectoruc_end", _wrap_vectoruc_end, METH_VARARGS, NULL},
+   { (char *)"vectoruc_rbegin", _wrap_vectoruc_rbegin, METH_VARARGS, NULL},
+   { (char *)"vectoruc_rend", _wrap_vectoruc_rend, METH_VARARGS, NULL},
+   { (char *)"vectoruc_pop_back", _wrap_vectoruc_pop_back, METH_VARARGS, NULL},
+   { (char *)"vectoruc_erase", _wrap_vectoruc_erase, METH_VARARGS, NULL},
+   { (char *)"new_vectoruc", _wrap_new_vectoruc, METH_VARARGS, NULL},
+   { (char *)"vectoruc_push_back", _wrap_vectoruc_push_back, METH_VARARGS, NULL},
+   { (char *)"vectoruc_front", _wrap_vectoruc_front, METH_VARARGS, NULL},
+   { (char *)"vectoruc_back", _wrap_vectoruc_back, METH_VARARGS, NULL},
+   { (char *)"vectoruc_assign", _wrap_vectoruc_assign, METH_VARARGS, NULL},
+   { (char *)"vectoruc_resize", _wrap_vectoruc_resize, METH_VARARGS, NULL},
+   { (char *)"vectoruc_insert", _wrap_vectoruc_insert, METH_VARARGS, NULL},
+   { (char *)"vectoruc_reserve", _wrap_vectoruc_reserve, METH_VARARGS, NULL},
+   { (char *)"vectoruc_capacity", _wrap_vectoruc_capacity, METH_VARARGS, NULL},
+   { (char *)"delete_vectoruc", _wrap_delete_vectoruc, METH_VARARGS, NULL},
+   { (char *)"vectoruc_swigregister", vectoruc_swigregister, METH_VARARGS, NULL},
+   { NULL, NULL, 0, NULL }
 };
 
 
